@@ -22,7 +22,7 @@
       <div class="fl-widget-content portlet-section-body" role="region">
         <div class="portlet-section-note" role="note">${about}</div>
       </div>
-      <div class="fl-widget-content portlet-section-footer" role="region"><a href="<portlet:renderURL windowState="maximized" portletMode="view" />"/>acc&eacute;der au contenu</a></div>
+      <div class="fl-widget-content portlet-section-footer" role="region"><a href="<portlet:renderURL windowState="maximized" portletMode="view" />"/>Acc&eacute;der au contenu</a></div>
     </div>
   </c:when>
   <c:otherwise>
