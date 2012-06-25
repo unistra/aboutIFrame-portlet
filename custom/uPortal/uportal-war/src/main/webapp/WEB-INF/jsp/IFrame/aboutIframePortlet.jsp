@@ -37,5 +37,41 @@
         </div>
       </div>
     </iframe>
+    <script type="text/javascript">
+      //<![CDATA[
+      /*********************************************
+      Resize d'iframe
+      *********************************************/
+      (function($){
+        $(document).ready(function(){
+
+              var resizeFrames = function() {
+                  $('iframe#${not empty iFrameName?iFrameName:uniqueID}').each(function(){
+                      var height_window = $(window).height();
+                      var extra_height = $('#portalPageHeader').height()
+                                       + $('#portalNavigation').height()
+                                       + 100 // spaces and up-portlet-titlebar
+                                       + $('#portalPageFooter').height();
+
+                      // do not open other iframe
+                      // direct child of up-portlet-content-wrapper-inner
+                      if($(this).parent().get(0).className == 'up-portlet-content-wrapper-inner') {
+                          newHeight = height_window-extra_height;
+                          this.height=newHeight+"px";
+
+                          //$('#portalPageFooter').hide();
+                      }
+                  });
+              }
+
+              $(window).resize(function() {
+                  resizeFrames();
+              });
+
+              resizeFrames();
+          });
+        })(up.jQuery);
+      //]]>
+    </script>
   </c:otherwise>
 </c:choose>
