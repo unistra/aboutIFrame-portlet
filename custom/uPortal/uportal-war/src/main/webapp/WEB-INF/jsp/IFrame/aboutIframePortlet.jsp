@@ -16,6 +16,7 @@
 
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 <c:set var="n"><portlet:namespace/></c:set>
+<c:set var="uniqueID"><portlet:namespace/>iframe</c:set>
 <c:choose>
   <c:when test="${isAbout}">
     <div class="fl-widget portlet" role="section">
@@ -26,9 +27,15 @@
     </div>
   </c:when>
   <c:otherwise>
-    <iframe src="${url}" height="${height}" frameborder="0" width="100%">
-        This browser does not support inline frames.<br/> 
-        <a href="${url}" target="_blank">Click here to view content</a> in a separate window.
+    <iframe src="${url}" height="${height}" id="${not empty iFrameName?iFrameName:uniqueID}" frameborder="0" width="100%">
+      <div class="fl-widget portlet" role="section">
+        <div class="fl-widget-content portlet-section-body" role="region">
+          <div class="portlet-section-note" role="note">This browser does not support inline frames.</div>
+        </div>
+        <div class="fl-widget-content portlet-section-footer" role="region">
+          <a href="${url}" target="_blank">Click here to view content</a> in a separate window.
+        </div>
+      </div>
     </iframe>
   </c:otherwise>
 </c:choose>

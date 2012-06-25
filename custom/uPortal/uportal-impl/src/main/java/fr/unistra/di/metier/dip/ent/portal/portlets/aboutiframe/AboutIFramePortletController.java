@@ -46,6 +46,7 @@ public class AboutIFramePortletController extends AbstractController {
         model.put("url", preferences.getValue("url", null));
         model.put("height", preferences.getValue("height", null));
         model.put("about", preferences.getValue("about", null));
+        model.put("iFrameName", preferences.getValue("iFrameName", null));
         model.put("isAbout", WindowState.NORMAL.equals(request.getWindowState()));
         
         return new ModelAndView("/jsp/IFrame/aboutIframePortlet", model);

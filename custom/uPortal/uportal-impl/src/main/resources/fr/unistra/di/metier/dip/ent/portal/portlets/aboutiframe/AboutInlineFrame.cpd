@@ -43,11 +43,15 @@
       <parameter modify="publish-only">
         <name>portletName</name>
         <label>Portlet Name</label>
-        <type base="string" input="text" display="hidden">
-          <length>40</length>
-          <maxlength>2000</maxlength>
+        <type base="string" input="single-choice" display="drop-down">
+          <restriction>
+            <defaultValue>AboutIFrame</defaultValue>
+            <value>AboutIFrame</value>
+          </restriction>
+          <length>20</length>
+          <maxlength>20</maxlength>
         </type>
-        <example>IFrame</example>
+        <example>AboutIFrame</example>
         <description>
           This is the name of the portlet as defined in the portlet.xml descriptor.
         </description>
@@ -57,10 +61,14 @@
       <parameter modify="publish-only">
         <name>disableDynamicTitle</name>
         <label>Disable Dynamic Title</label>
-        <type base="string" input="text" display="hidden">
-          <length>40</length>
-          <maxlength>2000</maxlength>
+        <type base="string" input="single-choice" display="checkbox">
+            <restriction>
+                <defaultValue>true</defaultValue>
+                <value>true</value>
+                <value>false</value>
+            </restriction>
         </type>
+        <example>true</example>
         <defaultValue>true</defaultValue>
       </parameter>
 
@@ -85,13 +93,25 @@
       </preference>
 
       <preference modify="publish-only">
+        <name>iFrameName</name>
+        <label>IFrame Name</label>
+        <type base="string" input="text" display="text">
+          <length>15</length>
+          <maxlength>40</maxlength>
+        </type>
+        <example>canalIFrame</example>
+        <description>id attribute value for iframe XHTML tag</description>
+        <defaultValue></defaultValue>
+      </preference>
+
+      <preference modify="publish-only">
         <name>about</name>
         <label>About</label>
         <type base="string" input="text" display="text">
           <length>40</length>
           <maxlength>4096</maxlength>
         </type>
-        <example>descriptive text</example>
+        <example><![CDATA[<p>descriptive text</p>]]></example>
       </preference>
 
     </step>
@@ -101,7 +121,7 @@
   <controls>
     <control type="edit" include="no" override="no"/>
     <control type="about" include="no" override="no"/>
-    <control type="help" include="no" override="no"/>
+    <control type="help" include="yes" override="no"/>
   </controls>
 
 </channelDef>
