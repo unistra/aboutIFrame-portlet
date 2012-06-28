@@ -27,7 +27,7 @@
     </div>
   </c:when>
   <c:otherwise>
-    <iframe src="${url}" height="${height}" id="${not empty iFrameName?iFrameName:uniqueID}" frameborder="0" width="100%">
+    <iframe src="${url}" height="${height}" id="${not empty iFrameName?iFrameName:uniqueID}" name="${not empty iFrameName?iFrameName:uniqueID}" frameborder="0" width="100%">
       <div class="fl-widget portlet" role="section">
         <div class="fl-widget-content portlet-section-body" role="region">
           <div class="portlet-section-note" role="note">This browser does not support inline frames.</div>
