@@ -57,7 +57,9 @@
                       // direct child of up-portlet-content-wrapper-inner
                       if($(this).parent().get(0).className == 'up-portlet-content-wrapper-inner') {
                           newHeight = height_window-extra_height;
-                          this.height=newHeight+"px";
+                          if (newHeight > 100) {
+                            this.height=newHeight+"px";
+                          }
 
                           //$('#portalPageFooter').hide();
                       }
