@@ -47,6 +47,7 @@
           <restriction>
             <defaultValue>AboutIFrame</defaultValue>
             <value>AboutIFrame</value>
+            <value>IFrame</value>
           </restriction>
           <length>20</length>
           <maxlength>20</maxlength>
@@ -80,6 +81,20 @@
           <maxlength>2000</maxlength>
         </type>
         <example>http://www.udel.edu/uPortal</example>
+      </preference>
+
+      <preference modify="publish-only">
+        <name>openExternal</name>
+        <label>Open frame in a new window</label>
+        <type base="string" input="single-choice" display="checkbox">
+            <restriction>
+                <defaultValue>false</defaultValue>
+                <value>false</value>
+                <value>true</value>
+            </restriction>
+        </type>
+        <example>false</example>
+        <defaultValue>false</defaultValue>
       </preference>
 
       <preference modify="publish">

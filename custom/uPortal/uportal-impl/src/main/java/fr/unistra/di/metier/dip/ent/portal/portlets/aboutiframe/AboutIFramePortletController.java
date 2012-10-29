@@ -15,8 +15,12 @@
  */
 package fr.unistra.di.metier.dip.ent.portal.portlets.aboutiframe;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.portlet.PortletPreferences;
 import javax.portlet.RenderRequest;
@@ -34,6 +38,11 @@ import org.springframework.web.portlet.mvc.AbstractController;
  * @author Léa Raya Décornod <decornod@unistra.fr>
  */
 public class AboutIFramePortletController extends AbstractController {
+	
+	/** non-exclusive windowStates */
+	private static final Set<WindowState> aboutWindowStates = Collections
+			.unmodifiableSet(new HashSet<WindowState>(Arrays.asList(
+					WindowState.MINIMIZED, WindowState.NORMAL)));
     
     @Override
     protected ModelAndView handleRenderRequestInternal(RenderRequest request, RenderResponse response) throws Exception {
@@ -43,11 +52,13 @@ public class AboutIFramePortletController extends AbstractController {
         // get the IFrame target URL and the configured height of the IFrame
         // window from the portlet preferences
         PortletPreferences preferences = request.getPreferences();
-        model.put("url", preferences.getValue("url", null));
-        model.put("height", preferences.getValue("height", null));
-        model.put("about", preferences.getValue("about", null));
-        model.put("iFrameName", preferences.getValue("iFrameName", null));
-        model.put("isAbout", WindowState.NORMAL.equals(request.getWindowState()));
+        model.put("url", preferences.getValue("url", "#"));
+        model.put("height", preferences.getValue("height", ""));
+        model.put("about", preferences.getValue("about", ""));
+        String uniqueID = response.getNamespace() + "frame";
+        model.put("iFrameName", preferences.getValue("iFrameName", uniqueID));
+        model.put("isOpenExternal", preferences.getValue("openExternal", "false").equalsIgnoreCase("true"));
+        model.put("isAbout", aboutWindowStates.contains(request.getWindowState()));
         
         return new ModelAndView("/jsp/IFrame/aboutIframePortlet", model);
     }

@@ -16,37 +16,54 @@
 
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 <c:set var="n"><portlet:namespace/></c:set>
-<c:set var="uniqueID"><portlet:namespace/>iframe</c:set>
 <c:choose>
   <c:when test="${isAbout}">
     <div class="fl-widget portlet" role="section">
       <div class="fl-widget-content portlet-section-body" role="region">
         <div class="portlet-section-note" role="note">${about}</div>
       </div>
-      <div class="fl-widget-content portlet-section-footer" role="region"><a href="<portlet:renderURL windowState="maximized" portletMode="view" />"/>Acc&eacute;der au contenu</a></div>
+      <div class="fl-widget-content portlet-section-footer" role="region"><a href="<portlet:renderURL windowState="maximized" portletMode="view" />"/><spring:message code="getToContent"/></a></div>
+    </div>
+  </c:when>
+  <c:when test="${isOpenExternal}">
+    <div class="fl-widget portlet" role="section">
+      <div class="fl-widget-content portlet-section-body" role="region">
+        <div class="portlet-section-note" role="note">${about}</div>
+      </div>
+      <div class="fl-widget-content portlet-section-body" role="region">
+		  <script>
+		    <%-- document.domain = "unistra.fr"; --%>
+		    <%--window.top.location.assign("${url}");--%>
+		    /* Opens url in a new browser named window */
+		    window.open("${url}","${iFrameName}");
+		  </script>
+      </div>
+      <div class="fl-widget-content portlet-section-footer" role="region">
+        <a href="${url}" target="${iFrameName}"><spring:message code="getToContent"/></a> <spring:message code="inNewWindow"/>
+      </div>
     </div>
   </c:when>
   <c:otherwise>
-    <iframe src="${url}" height="${height}" id="${not empty iFrameName?iFrameName:uniqueID}" name="${not empty iFrameName?iFrameName:uniqueID}" frameborder="0" width="100%">
+    <iframe src="${url}" height="${height}" id="${iFrameName}" name="${iFrameName}" frameborder="0" width="100%">
       <div class="fl-widget portlet" role="section">
         <div class="fl-widget-content portlet-section-body" role="region">
-          <div class="portlet-section-note" role="note">This browser does not support inline frames.</div>
+          <div class="portlet-section-note" role="note"><spring:message code="noBrowserIFrameSupport"/></div>
         </div>
         <div class="fl-widget-content portlet-section-footer" role="region">
-          <a href="${url}" target="_blank">Click here to view content</a> in a separate window.
+          <a href="${url}" target="${iFrameName}"><spring:message code="getToContent"/></a> <spring:message code="inNewWindow"/>
         </div>
       </div>
     </iframe>
     <script type="text/javascript">
       //<![CDATA[
       /*********************************************
-      Resize d'iframe
+      Resize iframe
       *********************************************/
       (function($){
         $(document).ready(function(){
 
               var resizeFrames = function() {
-                  $('iframe#${not empty iFrameName?iFrameName:uniqueID}').each(function(){
+                  $('iframe#${iFrameName}').each(function(){
                       var height_window = $(window).height();
                       var extra_height = $('#portalPageHeader').height()
                                        + $('#portalNavigation').height()

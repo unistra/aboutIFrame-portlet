@@ -30,5 +30,20 @@
             </map>
         </property>
     </bean>
+
+    <!--
+     | Message source for this context, loaded from localized "messages_xx" files
+     +-->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="alwaysUseMessageFormat" value="true" />
+        <property name="cacheSeconds" value="60" />
+        <property name="useCodeAsDefaultMessage" value="true" />
+        <property name="defaultEncoding" value="UTF-8" />
+        <property name="basenames">
+            <list>
+                <value>/WEB-INF/jsp/IFrame/aboutIframePortlet</value>
+            </list>
+        </property>
+    </bean>
     
 </beans>
