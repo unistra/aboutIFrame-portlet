@@ -17,30 +17,31 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 <c:set var="n"><portlet:namespace/></c:set>
 <c:choose>
+  <c:when test="${isOpenExternal}">
+    <div class="fl-widget portlet" role="section">
+      <div class="fl-widget-content portlet-section-body" role="region">
+        <div class="portlet-section-note" role="note">${about}</div>
+      </div>
+                  <%-- do not open popups with javascrit
+                    -- 'cause some browser block them hardly
+		  <script>
+		    /* document.domain = "unistra.fr"; */
+		    /* Opens url in a new browser named window */
+		    /* to open inplace instead : window.top.location.assign("${url}"); */
+		    window.open("${url}","${iFrameName}");
+		  </script>
+                  --%>
+      <div class="fl-widget-content portlet-section-footer" role="region">
+        <a href="${url}" target="_blank"><spring:message code="getToContent"/></a> <spring:message code="inNewWindow"/>
+      </div>
+    </div>
+  </c:when>
   <c:when test="${isAbout}">
     <div class="fl-widget portlet" role="section">
       <div class="fl-widget-content portlet-section-body" role="region">
         <div class="portlet-section-note" role="note">${about}</div>
       </div>
       <div class="fl-widget-content portlet-section-footer" role="region"><a href="<portlet:renderURL windowState="maximized" portletMode="view" />"/><spring:message code="getToContent"/></a></div>
-    </div>
-  </c:when>
-  <c:when test="${isOpenExternal}">
-    <div class="fl-widget portlet" role="section">
-      <div class="fl-widget-content portlet-section-body" role="region">
-        <div class="portlet-section-note" role="note">${about}</div>
-      </div>
-      <div class="fl-widget-content portlet-section-body" role="region">
-		  <script>
-		    <%-- document.domain = "unistra.fr"; --%>
-		    <%--window.top.location.assign("${url}");--%>
-		    /* Opens url in a new browser named window */
-		    window.open("${url}","${iFrameName}");
-		  </script>
-      </div>
-      <div class="fl-widget-content portlet-section-footer" role="region">
-        <a href="${url}" target="${iFrameName}"><spring:message code="getToContent"/></a> <spring:message code="inNewWindow"/>
-      </div>
     </div>
   </c:when>
   <c:otherwise>
