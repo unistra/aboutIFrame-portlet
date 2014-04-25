@@ -27,7 +27,7 @@
         <label>Framework Portlet</label>
         <type base="string" input="single-choice" display="hidden">
             <restriction>
-                <defaultValue>true</defaultValue>
+                <defaultValue>false</defaultValue>
                 <value>true</value>
                 <value>false</value>
             </restriction>

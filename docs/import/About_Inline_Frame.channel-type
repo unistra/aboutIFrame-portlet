@@ -3,5 +3,5 @@
   <name>About Inline Frame</name>
   <type>org.jasig.portal.channels.portlet.CSpringPortletAdaptor</type>
   <desc>Renders an HTML page within a frame but only not in Normal WindowState. Not supported in browsers older than Internet Explorer 5 and Netscape 6.</desc>
-  <uri>fr/unistra/di/metier/dip/ent/portal/portlets/aboutiframe/AboutInlineFrame.cpd</uri>
+  <uri>fr/unistra/di/ent/portlet/aboutiframe/AboutInlineFrame.cpd</uri>
 </channel-type>

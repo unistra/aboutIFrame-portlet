@@ -28,7 +28,7 @@
     <!-- AboutIFrame Portlet -->
     <portlet>
         <portlet-name>AboutIFrame</portlet-name>
-        <display-name xml:lang="en">Image</display-name>
+        <display-name xml:lang="en">AboutIFrame</display-name>
         <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
         <init-param>
             <name>contextConfigLocation</name>
