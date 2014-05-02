@@ -38,29 +38,30 @@ import org.springframework.web.portlet.mvc.AbstractController;
  * @author Léa Raya Décornod <decornod@unistra.fr>
  */
 public class AboutIFramePortletController extends AbstractController {
-	
+
 	/** non-exclusive windowStates */
 	private static final Set<WindowState> aboutWindowStates = Collections
 			.unmodifiableSet(new HashSet<WindowState>(Arrays.asList(
 					WindowState.MINIMIZED, WindowState.NORMAL)));
-    
-    @Override
-    protected ModelAndView handleRenderRequestInternal(RenderRequest request, RenderResponse response) throws Exception {
-        
-        Map<String, Object> model = new HashMap<String, Object>();
-        
-        // get the IFrame target URL and the configured height of the IFrame
-        // window from the portlet preferences
-        PortletPreferences preferences = request.getPreferences();
-        model.put("url", preferences.getValue("url", "#"));
-        model.put("height", preferences.getValue("height", ""));
-        model.put("about", preferences.getValue("about", ""));
-        String uniqueID = response.getNamespace() + "frame";
-        model.put("iFrameName", preferences.getValue("iFrameName", uniqueID));
-        model.put("isOpenExternal", preferences.getValue("openExternal", "false").equalsIgnoreCase("true"));
-        model.put("isAbout", aboutWindowStates.contains(request.getWindowState()));
-        
-        return new ModelAndView("/jsp/IFrame/aboutIframePortlet", model);
-    }
-    
+	
+	@Override
+	protected ModelAndView handleRenderRequestInternal(RenderRequest request,
+			RenderResponse response) throws Exception {
+		
+		Map<String,Object> model = new HashMap<String,Object>();
+		
+		// get the IFrame target URL and the configured height of the IFrame
+		// window from the portlet preferences
+		PortletPreferences preferences = request.getPreferences();
+		model.put("url", preferences.getValue("url", "#"));
+		model.put("height", preferences.getValue("height", ""));
+		model.put("about", preferences.getValue("about", ""));
+		String uniqueID = response.getNamespace() + "frame";
+		model.put("iFrameName", preferences.getValue("iFrameName", uniqueID));
+		model.put("isOpenExternal", preferences.getValue("openExternal", "false").equalsIgnoreCase("true"));
+		model.put("isAbout", aboutWindowStates.contains(request.getWindowState()));
+		
+		return new ModelAndView("/jsp/IFrame/aboutIframePortlet", model);
+	}
+
 }
