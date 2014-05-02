@@ -43,8 +43,11 @@ public class AboutIFramePortletController extends AbstractController {
 	/** non-exclusive windowStates */
 	private static final Set<WindowState> aboutWindowStates = Collections
 			.unmodifiableSet(new HashSet<WindowState>(Arrays.asList(
-					WindowState.MINIMIZED, WindowState.NORMAL)));
+			        PortletConstants.WINDOW_STATE_MINIMIZED,
+			        PortletConstants.WINDOW_STATE_NORMAL
+			)));
 	
+    @SuppressWarnings("serial")
     protected static final Map<String, String> IFRAME_ATTRS = Collections.unmodifiableMap(new LinkedHashMap<String, String>() {{
         /** document-wide unique id */
         put("id", null);
@@ -121,7 +124,9 @@ public class AboutIFramePortletController extends AbstractController {
 		    model.put("name", model.get("id"));
 		
 		boolean isOpenExternal = preferences.getValue("openExternal", "false").equalsIgnoreCase("true");
-        boolean isAbout = aboutWindowStates.contains(request.getWindowState());
+        boolean isAbout = aboutWindowStates.contains(request.getWindowState())
+                       || PortletConstants.PORTLET_MODE_ABOUT.equals(request.getPortletMode())
+                       || PortletConstants.PORTLET_MODE_HELP.equals(request.getPortletMode());
         if (isOpenExternal || isAbout)
             return new ModelAndView("/jsp/IFrame/aboutIframePortlet")
                 .addObject("url", model.get("src"))

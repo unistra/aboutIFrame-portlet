@@ -26,12 +26,13 @@
         </property>
         <property name="portletModeMap">
             <map>
-                <entry key="view">
-                    <bean class="fr.unistra.di.metier.dip.ent.portal.portlets.aboutiframe.AboutIFramePortletController"/>
-                </entry>
+                <entry key="view"><ref bean="viewHandler" /></entry>
+                <entry key="about"><ref bean="viewHandler" /></entry>
+                <entry key="help"><ref bean="viewHandler" /></entry>
             </map>
         </property>
     </bean>
+    <bean id="viewHandler" class="fr.unistra.di.metier.dip.ent.portal.portlets.aboutiframe.AboutIFramePortletController"/>
 
     <!--
      | Message source for this context, loaded from localized "messages_xx" files
