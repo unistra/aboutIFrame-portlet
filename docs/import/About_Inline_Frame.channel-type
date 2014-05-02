@@ -1,7 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
 
-<channel-type script="classpath://org/jasig/portal/io/import-channel-type_v2-6.crn">
-  <name>About Inline Frame</name>
-  <type>org.jasig.portal.channels.portlet.CSpringPortletAdaptor</type>
-  <desc>Renders an HTML page within a frame but only not in Normal WindowState. Not supported in browsers older than Internet Explorer 5 and Netscape 6.</desc>
-  <uri>fr/unistra/di/ent/portlet/aboutiframe/AboutInlineFrame.cpd</uri>
-</channel-type>
+
+-->
+<portlet-type xmlns="https://source.jasig.org/schemas/uportal/io/portlet-type" xmlns:ns2="https://source.jasig.org/schemas/uportal/io/permission-owner" xmlns:ns3="https://source.jasig.org/schemas/uportal/io/stylesheet-descriptor" xmlns:ns4="https://source.jasig.org/schemas/uportal/io/portlet-definition" xmlns:ns5="https://source.jasig.org/schemas/uportal" xmlns:ns6="https://source.jasig.org/schemas/uportal/io/user" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="4.0" xsi:schemaLocation="https://source.jasig.org/schemas/uportal/io/portlet-type https://source.jasig.org/schemas/uportal/io/portlet-type/portlet-type-4.0.xsd">
+    <name>About Inline Frame</name>
+    <description>Renders an HTML page within a frame but only not in Normal WindowState. Not supported in browsers older than Internet Explorer 5 and Netscape 6.</description>
+    <uri>fr/unistra/di/ent/portlet/aboutiframe/AboutInlineFrame.cpd.xml</uri>
+</portlet-type>

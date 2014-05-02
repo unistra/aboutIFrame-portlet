@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -38,12 +39,57 @@ import org.springframework.web.portlet.mvc.AbstractController;
  * @author Léa Raya Décornod <decornod@unistra.fr>
  */
 public class AboutIFramePortletController extends AbstractController {
-
+    
 	/** non-exclusive windowStates */
 	private static final Set<WindowState> aboutWindowStates = Collections
 			.unmodifiableSet(new HashSet<WindowState>(Arrays.asList(
 					WindowState.MINIMIZED, WindowState.NORMAL)));
 	
+    protected static final Map<String, String> IFRAME_ATTRS = Collections.unmodifiableMap(new LinkedHashMap<String, String>() {{
+        /** document-wide unique id */
+        put("id", null);
+        
+        /** space-separated list of classes */
+        put("cssClass", null);
+        
+        /** associated style info */
+        put("style", null);
+        
+        /** advisory title */
+        put("title", null);
+        
+        /** link to long description (complements title) */
+        put("longDescription", null);
+        
+        /** name of frame for targetting */
+        put("name", null);
+        
+        /** source of frame content */
+        put("src", null);
+        
+        /** request frame borders? */
+        put("frameBorder", "0");
+        
+        /** margin widths in pixels */
+        put("marginWidth", null);
+        
+        /** margin height in pixels */
+        put("marginHeight", null);
+        
+        /** scrollbar or none */
+        put("scrolling", null);
+        
+        /** vertical or horizontal alignment */
+        put("align", null);
+        
+        /** frame height */
+        put("width", "100%");
+        
+        /** frame width */
+        put("height", null);
+    }});
+
+
 	@Override
 	protected ModelAndView handleRenderRequestInternal(RenderRequest request,
 			RenderResponse response) throws Exception {
@@ -53,15 +99,33 @@ public class AboutIFramePortletController extends AbstractController {
 		// get the IFrame target URL and the configured height of the IFrame
 		// window from the portlet preferences
 		PortletPreferences preferences = request.getPreferences();
-		model.put("url", preferences.getValue("url", "#"));
-		model.put("height", preferences.getValue("height", ""));
-		model.put("about", preferences.getValue("about", ""));
-		String uniqueID = response.getNamespace() + "frame";
-		model.put("iFrameName", preferences.getValue("iFrameName", uniqueID));
-		model.put("isOpenExternal", preferences.getValue("openExternal", "false").equalsIgnoreCase("true"));
-		model.put("isAbout", aboutWindowStates.contains(request.getWindowState()));
 		
-		return new ModelAndView("/jsp/IFrame/aboutIframePortlet", model);
+		for (final Map.Entry<String, String> attrEntry : IFRAME_ATTRS.entrySet()) {
+    		final String attr = attrEntry.getKey();
+            final String defaultValue = attrEntry.getValue();
+            model.put(attr, preferences.getValue(attr, defaultValue));
+		}
+		
+        //Legacy support for url attribute
+		if (model.get("src") == null) {
+	        model.put("src", preferences.getValue("url", IFRAME_ATTRS.get("src")));	        
+		}
+		
+		// sets iframe id if undefined (using legacy iFrameName)
+		if (model.get("id") == null) {
+		    String uniqueID = response.getNamespace() + "frame";
+		    model.put("id", preferences.getValue("iFrameName", uniqueID));
+		}
+		// copy @id to @name (if undefined) for compatibility
+		if (model.get("name") == null)
+		    model.put("name", model.get("id"));
+		
+		return new ModelAndView("/jsp/IFrame/aboutIframePortlet", "attrs", model)
+			.addObject("url", model.get("src"))
+			.addObject("iFrameName", model.get("id"))
+			.addObject("about", preferences.getValue("about", ""))
+			.addObject("isOpenExternal", preferences.getValue("openExternal", "false").equalsIgnoreCase("true"))
+			.addObject("isAbout", aboutWindowStates.contains(request.getWindowState()));
 	}
 
 }

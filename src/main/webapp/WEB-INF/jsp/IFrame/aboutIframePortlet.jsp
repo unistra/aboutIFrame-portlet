@@ -45,13 +45,19 @@
     </div>
   </c:when>
   <c:otherwise>
-    <iframe src="${url}" height="${height}" id="${iFrameName}" name="${iFrameName}" frameborder="0" width="100%">
+    <c:set var="iframeAttrs">
+      <c:forEach var="attrEntry" items="${attrs}">
+        <c:if test="${not empty attrEntry.value and 'src' != attrEntry.key}">${attrEntry.key}="${attrEntry.value}" </c:if>
+      </c:forEach>
+    </c:set>
+
+    <iframe src="${attrs.src}" ${iframeAttrs}>
       <div class="fl-widget portlet" role="section">
         <div class="fl-widget-content portlet-section-body" role="region">
           <div class="portlet-section-note" role="note"><spring:message code="noBrowserIFrameSupport"/></div>
         </div>
         <div class="fl-widget-content portlet-section-footer" role="region">
-          <a href="${url}" target="${iFrameName}"><spring:message code="getToContent"/></a> <spring:message code="inNewWindow"/>
+          <a href="${attrs.src}" target="${iFrameName}"><spring:message code="getToContent"/></a> <spring:message code="inNewWindow"/>
         </div>
       </div>
     </iframe>
