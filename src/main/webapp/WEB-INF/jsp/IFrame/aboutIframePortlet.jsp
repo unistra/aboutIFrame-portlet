@@ -16,88 +16,29 @@
 
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 <c:set var="n"><portlet:namespace/></c:set>
-<c:choose>
-  <c:when test="${isOpenExternal}">
-    <div class="fl-widget portlet" role="section">
-      <div class="fl-widget-content portlet-section-body" role="region">
-        <div class="portlet-section-note" role="note">${about}</div>
-      </div>
-                  <%-- do not open popups with javascrit
-                    -- 'cause some browser block them hardly
+  <%-- do not open popups with javascrit
+    -- 'cause some browser block them hardly
+  <c:if test="${isOpenExternal}">
 		  <script>
 		    /* document.domain = "unistra.fr"; */
 		    /* Opens url in a new browser named window */
 		    /* to open inplace instead : window.top.location.assign("${url}"); */
 		    window.open("${url}","${iFrameName}");
 		  </script>
-                  --%>
-      <div class="fl-widget-content portlet-section-footer" role="region">
+  </c:if>
+  --%>
+<div class="fl-widget portlet" role="section">
+  <div class="fl-widget-content portlet-section-body" role="region">
+    <div class="portlet-section-note" role="note">${about}</div>
+  </div>
+  <div class="fl-widget-content portlet-section-footer" role="region">
+    <c:choose>
+      <c:when test="${isOpenExternal}">
         <a href="${url}" target="_blank"><spring:message code="getToContent"/></a> <spring:message code="inNewWindow"/>
-      </div>
-    </div>
-  </c:when>
-  <c:when test="${isAbout}">
-    <div class="fl-widget portlet" role="section">
-      <div class="fl-widget-content portlet-section-body" role="region">
-        <div class="portlet-section-note" role="note">${about}</div>
-      </div>
-      <div class="fl-widget-content portlet-section-footer" role="region"><a href="<portlet:renderURL windowState="maximized" portletMode="view" />"/><spring:message code="getToContent"/></a></div>
-    </div>
-  </c:when>
-  <c:otherwise>
-    <c:set var="iframeAttrs">
-      <c:forEach var="attrEntry" items="${attrs}">
-        <c:if test="${not empty attrEntry.value and 'src' != attrEntry.key}">${attrEntry.key}="${attrEntry.value}" </c:if>
-      </c:forEach>
-    </c:set>
-
-    <iframe src="${attrs.src}" ${iframeAttrs}>
-      <div class="fl-widget portlet" role="section">
-        <div class="fl-widget-content portlet-section-body" role="region">
-          <div class="portlet-section-note" role="note"><spring:message code="noBrowserIFrameSupport"/></div>
-        </div>
-        <div class="fl-widget-content portlet-section-footer" role="region">
-          <a href="${attrs.src}" target="${iFrameName}"><spring:message code="getToContent"/></a> <spring:message code="inNewWindow"/>
-        </div>
-      </div>
-    </iframe>
-    <script type="text/javascript">
-      //<![CDATA[
-      /*********************************************
-      Resize iframe
-      *********************************************/
-      (function($){
-        $(document).ready(function(){
-
-              var resizeFrames = function() {
-                  $('iframe#${iFrameName}').each(function(){
-                      var height_window = $(window).height();
-                      var extra_height = $('#portalPageHeader').height()
-                                       + $('#portalNavigation').height()
-                                       + 100 // spaces and up-portlet-titlebar
-                                       + $('#portalPageFooter').height();
-
-                      // do not open other iframe
-                      // direct child of up-portlet-content-wrapper-inner
-                      if($(this).parent().get(0).className == 'up-portlet-content-wrapper-inner') {
-                          newHeight = height_window-extra_height;
-                          if (newHeight > 100) {
-                            this.height=newHeight+"px";
-                          }
-
-                          //$('#portalPageFooter').hide();
-                      }
-                  });
-              }
-
-              $(window).resize(function() {
-                  resizeFrames();
-              });
-
-              resizeFrames();
-          });
-        })(up.jQuery);
-      //]]>
-    </script>
-  </c:otherwise>
-</c:choose>
+      </c:when>
+      <c:otherwise>
+        <a href="<portlet:renderURL windowState="maximized" portletMode="view" />"><spring:message code="getToContent"/></a>
+      </c:otherwise>
+    </c:choose>
+  </div>
+</div>

@@ -120,12 +120,16 @@ public class AboutIFramePortletController extends AbstractController {
 		if (model.get("name") == null)
 		    model.put("name", model.get("id"));
 		
-		return new ModelAndView("/jsp/IFrame/aboutIframePortlet", "attrs", model)
-			.addObject("url", model.get("src"))
-			.addObject("iFrameName", model.get("id"))
-			.addObject("about", preferences.getValue("about", ""))
-			.addObject("isOpenExternal", preferences.getValue("openExternal", "false").equalsIgnoreCase("true"))
-			.addObject("isAbout", aboutWindowStates.contains(request.getWindowState()));
+		boolean isOpenExternal = preferences.getValue("openExternal", "false").equalsIgnoreCase("true");
+        boolean isAbout = aboutWindowStates.contains(request.getWindowState());
+        if (isOpenExternal || isAbout)
+            return new ModelAndView("/jsp/IFrame/aboutIframePortlet")
+                .addObject("url", model.get("src"))
+                .addObject("iFrameName", model.get("id"))
+                .addObject("about", preferences.getValue("about", ""))
+                .addObject("isOpenExternal", isOpenExternal);
+        
+        return new ModelAndView("/jsp/IFrame/iframePortlet", "attrs", model);
 	}
 
 }
