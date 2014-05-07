@@ -16,6 +16,7 @@
 
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 <c:set var="n"><portlet:namespace/></c:set>
+<rs:aggregatedResources path="skin.xml"/>
 <c:set var="iframeAttrs">
   <c:forEach var="attrEntry" items="${attrs}">
     <c:if test="${not empty attrEntry.value and 'src' != attrEntry.key}">${attrEntry.key}="${attrEntry.value}" </c:if>
@@ -33,11 +34,14 @@
   </div>
 </iframe>
 <script type="text/javascript">
+<rs:compressJs>
   //<![CDATA[
-  /*********************************************
-  Resize iframe
-  *********************************************/
+  var ${n} = ${n} || {};
+  ${n}.jQuery = jQuery.noConflict(true);
   (function($){
+    /*********************************************
+    Resize iframe
+    *********************************************/
     $(document).ready(function(){
 
           var resizeFrames = function() {
@@ -59,14 +63,13 @@
                       //$('#portalPageFooter').hide();
                   }
               });
-          }
+          };
 
-          $(window).resize(function() {
-              resizeFrames();
-          });
+          $(window).resize(resizeFrames);
 
           resizeFrames();
       });
-    })(up.jQuery);
+    })(${n}.jQuery);
   //]]>
+</rs:compressJs>
 </script>
