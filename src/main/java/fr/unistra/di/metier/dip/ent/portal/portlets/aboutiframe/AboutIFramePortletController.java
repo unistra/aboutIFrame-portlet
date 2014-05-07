@@ -28,6 +28,8 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.WindowState;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.mvc.AbstractController;
 
@@ -38,6 +40,8 @@ import org.springframework.web.portlet.mvc.AbstractController;
  * @see org.jasig.portal.AboutIFramePortletController.iframe.IFramePortletController
  * @author Léa Raya Décornod <decornod@unistra.fr>
  */
+@Controller
+@RequestMapping({"VIEW","HELP","ABOUT"})
 public class AboutIFramePortletController extends AbstractController {
     
 	/** non-exclusive windowStates */
@@ -123,7 +127,7 @@ public class AboutIFramePortletController extends AbstractController {
 		if (model.get("name") == null)
 		    model.put("name", model.get("id"));
 		
-		boolean isOpenExternal = preferences.getValue("openExternal", "false").equalsIgnoreCase("true");
+		boolean isOpenExternal = Boolean.parseBoolean(preferences.getValue("openExternal", "false"));
         boolean isAbout = aboutWindowStates.contains(request.getWindowState())
                        || PortletConstants.PORTLET_MODE_ABOUT.equals(request.getPortletMode())
                        || PortletConstants.PORTLET_MODE_HELP.equals(request.getPortletMode());
