@@ -16,6 +16,7 @@
 
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 <c:set var="n"><portlet:namespace/></c:set>
+<rs:aggregatedResources path="skin-config.xml"/>
 <portlet:actionURL var="formUrl"><portlet:param name="action" value="update" /></portlet:actionURL>
 <portlet:actionURL var="cancelUrl"><portlet:param name="action" value="cancel" /></portlet:actionURL>
 <div class="fl-widget portlet" role="section">
@@ -30,8 +31,31 @@
 	      <form:input path="url" type="url" /><br/>
 	      <form:label path="openExternal"><spring:message code="config.openExternal"/></form:label>
 		    <form:checkbox path="openExternal" /><br/>
-	      <form:label path="about"><spring:message code="config.about"/></form:label>
-	      <form:textarea path="about" /><br/>
+          <div class="fl-widget up-portlet-wrapper">
+            <div class="up-portlet-wrapper-inner">
+              <div class="fl-widget-titlebar up-portlet-titlebar">
+                <h2><a href="#"><form:label path="about"><spring:message code="config.about"/></form:label></a></h2>
+              </div>
+              <div class="fl-widget-content fl-fix up-portlet-content-wrapper">
+                <div class="up-portlet-content-wrapper-inner">
+                  <div class="fl-widget portlet view" role="section">
+                    <div class="fl-widget-content portlet-section-body flc-inlineEdit-text" role="region">
+                      <div id="${n}about" class="portlet-section-note text" role="note">${form.about}</div>
+                    </div>
+                    <div class="fl-widget-content portlet-section-footer" role="region">
+                      <a href='#_' class='flc-inlineEdit-textEditButton'>Modify...</a>
+                    </div>
+          <div class="fl-widget-content flc-inlineEdit-editContainer">
+            <form:textarea path="about" cssClass="fl-widget-content" />
+          </div>
+                  </div>
+                </div>
+              </div>
+               <div class="up-portlet-wrapper-bottom">
+                 <div class="up-portlet-wrapper-bottom-inner"></div>
+               </div>
+             </div>
+          </div>
 		  </div>
 		  <div class="panel portlet-section-body" role="region">
 		  <fieldset style="border: thin solid black; border-radius: 1em;">
@@ -71,3 +95,45 @@
 	  </div>
   </form:form>
 </div>
+<script type="text/javascript">
+<rs:compressJs>
+  //<![CDATA[
+  var ${n} = ${n} || {};
+  ${n}.jQuery = jQuery.noConflict(true);
+  ${n}.fluid = fluid;
+
+  ${n}.innerAccessor = function (element) {
+    return {
+      value: function (newValue) {
+          return ${n}.jQuery(element).find(".text").html(newValue)
+      }
+    };
+  };
+
+  (function($,fluid){
+      $(document).ready(function(){
+          // Create an CKEditor 3.x-based Rich Inline Edit component.
+          var ckEditor = fluid.inlineEdit.CKEditor("#${n}form", {
+            useTooltip: false,
+            submitOnEnter: false,
+            displayAccessor: {
+              type: "${n}.innerAccessor"
+            },
+            listeners: {
+              onInitEdit: function (ckObj) {
+                // remaps 'save' button
+                ckObj.getCommand('save').exec = function (editor) {
+                        ckEditor.finish();
+                };
+              }
+            },
+            CKEditor: {
+              // CKEditor prefs
+              //removePlugins = 'save'
+            }
+          });
+      });
+  })(${n}.jQuery, ${n}.fluid);
+  //]]>
+</rs:compressJs>
+</script>
