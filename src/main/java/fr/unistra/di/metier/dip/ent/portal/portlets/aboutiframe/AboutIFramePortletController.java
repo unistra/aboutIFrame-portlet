@@ -23,14 +23,15 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.portlet.PortletMode;
 import javax.portlet.PortletPreferences;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.WindowState;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.portlet.ModelAndView;
 
 /**
  * This portlet renders content identified by a URL within an inline browser
@@ -95,11 +96,16 @@ public class AboutIFramePortletController {
         put("height", null);
     }});
 
+    /**
+     * Model Attribute holding HTML IFrame element's attributes
+     * @param request used to access {@link PortletPreferences}
+     * @param response used to get {@link RenderResponse#getNamespace() Portlet Namespace}
+     * @return a map
+     */
+    @ModelAttribute("attrs")
+    protected Map<String,Object> getAttrs(RenderRequest request,
+            RenderResponse response) {
 
-	@RequestMapping
-	protected ModelAndView handleRenderRequestInternal(RenderRequest request,
-			RenderResponse response) throws Exception {
-		
 		Map<String,Object> model = new HashMap<String,Object>();
 		
 		// get the IFrame target URL and the configured height of the IFrame
@@ -125,19 +131,47 @@ public class AboutIFramePortletController {
 		// copy @id to @name (if undefined) for compatibility
 		if (model.get("name") == null)
 		    model.put("name", model.get("id"));
+
+		return model;
+    }
+
+    /**
+     * about HTML text retrieved from {@link PortletPreferences Portlet preference}
+     * @param request used to access {@link PortletPreferences}
+     * @return HTML fragment
+     */
+    @ModelAttribute("about")
+    protected String getAbout(RenderRequest request) {
+        PortletPreferences preferences = request.getPreferences();
+        return preferences.getValue("about", "");
+    }
+
+    /**
+     * openExternal {@link PortletPreferences Portlet preference}
+     * @param request used to access {@link PortletPreferences}
+     * @return true if the url has to be opened in a new browser window
+     */
+    @ModelAttribute("isOpenExternal")
+    protected boolean isOpenExternal(RenderRequest request) {
+        PortletPreferences preferences = request.getPreferences();
+        return Boolean.parseBoolean(preferences.getValue("openExternal", "false"));
+    }
+
+    /**
+     * Decides if we render ‘iframe’ or ‘about’ view
+     * @param request to get {@link WindowState} and {@link PortletMode}
+     * @return view name
+     */
+    @RequestMapping
+	protected String showView(RenderRequest request) {
 		
-		boolean isOpenExternal = Boolean.parseBoolean(preferences.getValue("openExternal", "false"));
         boolean isAbout = aboutWindowStates.contains(request.getWindowState())
                        || PortletConstants.PORTLET_MODE_ABOUT.equals(request.getPortletMode())
                        || PortletConstants.PORTLET_MODE_HELP.equals(request.getPortletMode());
-        if (isOpenExternal || isAbout)
-            return new ModelAndView("/jsp/IFrame/aboutIframePortlet")
-                .addObject("url", model.get("src"))
-                .addObject("iFrameName", model.get("id"))
-                .addObject("about", preferences.getValue("about", ""))
-                .addObject("isOpenExternal", isOpenExternal);
+        if (isOpenExternal(request) || isAbout)
+            return "/jsp/IFrame/aboutIframePortlet";
         
-        return new ModelAndView("/jsp/IFrame/iframePortlet", "attrs", model);
+        return "/jsp/IFrame/iframePortlet";
 	}
 
 }

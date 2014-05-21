@@ -22,8 +22,8 @@
 		  <script>
 		    /* document.domain = "unistra.fr"; */
 		    /* Opens url in a new browser named window */
-		    /* to open inplace instead : window.top.location.assign("${url}"); */
-		    window.open("${url}","${iFrameName}");
+		    /* to open inplace instead : window.top.location.assign("${attrs.src}"); */
+		    window.open("${attrs.src}","${attrs.id}");
 		  </script>
   </c:if>
   --%>
@@ -34,7 +34,7 @@
   <div class="fl-widget-content portlet-section-footer" role="region">
     <c:choose>
       <c:when test="${isOpenExternal}">
-        <a href="${url}" target="_blank"><spring:message code="getToContent"/></a> <spring:message code="inNewWindow"/>
+        <a href="${attrs.src}" target="${attrs.id}"><spring:message code="getToContent"/></a> <spring:message code="inNewWindow"/>
       </c:when>
       <c:otherwise>
         <a href="<portlet:renderURL windowState="maximized" portletMode="view" />"><spring:message code="getToContent"/></a>
