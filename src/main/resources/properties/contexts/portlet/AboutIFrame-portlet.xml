@@ -27,9 +27,6 @@
     
     <bean id="portletModeHandlerMapping"
         class="org.springframework.web.portlet.mvc.annotation.DefaultAnnotationHandlerMapping">
-        <property name="interceptors">
-            <bean class="org.jasig.web.portlet.handler.MinimizedStateHandlerInterceptor" />
-        </property>
     </bean>
 
     <!--

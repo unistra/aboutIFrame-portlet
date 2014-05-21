@@ -31,7 +31,6 @@ import javax.portlet.WindowState;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.ModelAndView;
-import org.springframework.web.portlet.mvc.AbstractController;
 
 /**
  * This portlet renders content identified by a URL within an inline browser
@@ -42,7 +41,7 @@ import org.springframework.web.portlet.mvc.AbstractController;
  */
 @Controller
 @RequestMapping({"VIEW","HELP","ABOUT"})
-public class AboutIFramePortletController extends AbstractController {
+public class AboutIFramePortletController {
     
 	/** non-exclusive windowStates */
 	private static final Set<WindowState> aboutWindowStates = Collections
@@ -97,7 +96,7 @@ public class AboutIFramePortletController extends AbstractController {
     }});
 
 
-	@Override
+	@RequestMapping
 	protected ModelAndView handleRenderRequestInternal(RenderRequest request,
 			RenderResponse response) throws Exception {
 		
