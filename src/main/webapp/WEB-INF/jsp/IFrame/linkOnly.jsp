@@ -16,20 +16,13 @@
 
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 <c:set var="n"><portlet:namespace/></c:set>
-  <%-- do not open popups with javascrit
-    -- 'cause some browser block them hardly
-  <c:if test="${isOpenExternal}">
-		  <script>
-		    /* document.domain = "unistra.fr"; */
-		    /* Opens url in a new browser named window */
-		    /* to open inplace instead : window.top.location.assign("${attrs.src}"); */
-		    window.open("${attrs.src}","${attrs.id}");
-		  </script>
-  </c:if>
-  --%>
-<div class="fl-widget portlet" role="section">
-  <div class="fl-widget-content portlet-section-body" role="region">
-    <div class="portlet-section-note" role="note">${about}</div>
+  <div class="fl-widget-content portlet-section-footer" role="region">
+    <c:choose>
+      <c:when test="${isOpenExternal}">
+        <a href="${attrs.src}" target="${attrs.id}"><spring:message code="getToContent"/></a> <spring:message code="inNewWindow"/>
+      </c:when>
+      <c:otherwise>
+        <a href="<portlet:renderURL windowState="maximized" portletMode="view" />"><spring:message code="getToContent"/></a>
+      </c:otherwise>
+    </c:choose>
   </div>
-  <jsp:include page="linkOnly.jsp" />
-</div>

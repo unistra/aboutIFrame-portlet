@@ -165,6 +165,9 @@ public class AboutIFramePortletController {
     @RequestMapping
 	protected String showView(RenderRequest request) {
 		
+        if (PortletConstants.WINDOW_STATE_MINIMIZED.equals(request.getWindowState()))
+            return "/jsp/IFrame/linkOnly";
+        
         boolean isAbout = aboutWindowStates.contains(request.getWindowState())
                        || PortletConstants.PORTLET_MODE_ABOUT.equals(request.getPortletMode())
                        || PortletConstants.PORTLET_MODE_HELP.equals(request.getPortletMode());
