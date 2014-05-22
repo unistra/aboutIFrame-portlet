@@ -56,6 +56,31 @@
                </div>
              </div>
           </div>
+          <div class="fl-widget up-portlet-wrapper">
+            <div class="up-portlet-wrapper-inner">
+              <div class="fl-widget-titlebar up-portlet-titlebar">
+                <h2><a href="#"><form:label path="help"><spring:message code="config.help"/></form:label></a></h2>
+              </div>
+              <div class="fl-widget-content fl-fix up-portlet-content-wrapper">
+                <div class="up-portlet-content-wrapper-inner">
+                  <div class="fl-widget portlet view" role="section">
+                    <div class="fl-widget-content portlet-section-body " role="region">
+                      <div id="${n}help" class="portlet-section-note " role="note">${form.help}</div>
+                    </div>
+                    <div class="fl-widget-content portlet-section-footer" role="region">
+                      <a href='#_' class=''>Modify...</a>
+                    </div>
+          <div class="fl-widget-content ">
+            <form:textarea path="help" cssClass="fl-widget-content" />
+          </div>
+                  </div>
+                </div>
+              </div>
+               <div class="up-portlet-wrapper-bottom">
+                 <div class="up-portlet-wrapper-bottom-inner"></div>
+               </div>
+             </div>
+          </div>
 		  </div>
 		  <div class="panel portlet-section-body" role="region">
 		  <fieldset style="border: thin solid black; border-radius: 1em;">

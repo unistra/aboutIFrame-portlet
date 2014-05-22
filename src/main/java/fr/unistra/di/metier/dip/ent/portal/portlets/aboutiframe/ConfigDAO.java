@@ -58,6 +58,7 @@ public class ConfigDAO {
         }
         form.setUrl(preferences.getValue("url", ""));
         form.setAbout(preferences.getValue("about", ""));
+        form.setHelp(preferences.getValue("help", ""));
         form.setOpenExternal(Boolean.parseBoolean(
                         preferences.getValue("openExternal", "false")));
 
@@ -87,6 +88,11 @@ public class ConfigDAO {
         try {
             preferences.setValue("url", form.getUrl());
             preferences.setValue("about", form.getAbout());
+            String help = form.getHelp();
+            if (! help.isEmpty())
+                preferences.setValue("help", help);
+            else
+                preferences.reset("help");
             if (form.isOpenExternal())
                 preferences.setValue("openExternal", Boolean.toString(form.isOpenExternal()));
             else

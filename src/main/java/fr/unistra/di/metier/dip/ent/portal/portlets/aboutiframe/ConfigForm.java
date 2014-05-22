@@ -35,6 +35,7 @@ public class ConfigForm implements Serializable {
 
     private String url;
     private String about;
+    private String help;
     private boolean openExternal;
 
     /**
@@ -69,6 +70,22 @@ public class ConfigForm implements Serializable {
         this.about = about;
     }
 
+    /**
+     * Get the HTML content to be displayed as “Help”
+     * @return the HTML “help” content
+     */
+    public String getHelp() {
+        return help;
+    }
+    
+    /**
+     * Set the HTML content to be displayed as “Help”
+     * @param about the HTML “help” content
+     */
+    public void setHelp(String help) {
+        this.help = help;
+    }
+    
     /**
      * True if the content has to be opened in a external browser window
      */

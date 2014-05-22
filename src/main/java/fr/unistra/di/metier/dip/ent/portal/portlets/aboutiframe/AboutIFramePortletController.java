@@ -143,6 +143,8 @@ public class AboutIFramePortletController {
     @ModelAttribute("about")
     protected String getAbout(RenderRequest request) {
         PortletPreferences preferences = request.getPreferences();
+        if (PortletConstants.PORTLET_MODE_HELP.equals(request.getPortletMode()))
+            return preferences.getValue("help", preferences.getValue("about", ""));
         return preferences.getValue("about", "");
     }
 
