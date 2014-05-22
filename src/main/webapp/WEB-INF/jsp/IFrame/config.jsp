@@ -154,7 +154,20 @@
             },
             CKEditor: {
               // CKEditor prefs
-              //removePlugins = 'save'
+              toolbar: 'Full',
+              toolbar_Full: [
+                { name: 'document', items : [ 'Source','-','Save','NewPage','DocProps' ] },
+                { name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
+                { name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ] },
+                { name: 'tools', items : [ 'Maximize', 'ShowBlocks','-','About' ] },
+                '/',
+                { name: 'styles', items : [ 'Styles','Format' ] },
+                { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
+                { name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Blockquote','CreateDiv',
+                '-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ] },
+                { name: 'links', items : [ 'Link','Unlink','Anchor' ] },
+                { name: 'insert', items : [ 'HorizontalRule','SpecialChar' ] }
+              ]
             }
           });
       });
