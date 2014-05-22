@@ -120,7 +120,7 @@
               type: "${n}.innerAccessor"
             },
             listeners: {
-              onInitEdit: function (ckObj) {
+              afterInitEdit: function (ckObj) {
                 // remaps 'save' button
                 ckObj.getCommand('save').exec = function (editor) {
                         ckEditor.finish();
