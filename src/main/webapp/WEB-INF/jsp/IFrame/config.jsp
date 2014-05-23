@@ -71,7 +71,7 @@
                       <a href='#_' class=''>Modify...</a>
                     </div>
           <div class="fl-widget-content ">
-            <form:textarea path="help" cssClass="fl-widget-content" />
+            <form:input path="help" cssClass="fl-widget-content" />
           </div>
                   </div>
                 </div>
