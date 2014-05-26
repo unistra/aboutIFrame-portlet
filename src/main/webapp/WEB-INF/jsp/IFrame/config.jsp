@@ -167,6 +167,13 @@
                 '-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ] },
                 { name: 'links', items : [ 'Link','Unlink','Anchor' ] },
                 { name: 'insert', items : [ 'HorizontalRule','SpecialChar' ] }
+              ],
+              stylesSet: 'styles:<c:url value="/media/ckeditor/styles.js" />',
+              bodyClass: 'portlet fl-theme-mist',
+              contentsCss: [
+                '<rs:resourceURL value="/rs/fluid/1.4.0/fss/css/fss-framework-1.4.0.css" />',
+                '<rs:resourceURL value="/rs/fluid/1.4.0/fss/css/fss-theme-mist.css" />',
+                '<c:url value="/media/ckeditor/jsr168.css" />'
               ]
             }
           });
