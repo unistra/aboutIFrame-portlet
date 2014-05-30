@@ -156,7 +156,8 @@ public class AboutIFramePortletController {
     @ModelAttribute("isOpenExternal")
     protected boolean isOpenExternal(RenderRequest request) {
         PortletPreferences preferences = request.getPreferences();
-        return Boolean.parseBoolean(preferences.getValue("openExternal", "false"));
+        return PortletConstants.IFrameStyle.EXTERNAL.name()
+                .equalsIgnoreCase(preferences.getValue("displayStyle", "About"));
     }
 
     /**
@@ -166,16 +167,24 @@ public class AboutIFramePortletController {
      */
     @RequestMapping
 	protected String showView(RenderRequest request) {
-		
+        // style = "IFrame" → <iframe />
+        PortletPreferences preferences = request.getPreferences();
+        if (PortletConstants.IFrameStyle.IFRAME.name()
+        .equalsIgnoreCase(preferences.getValue("displayStyle", "About")))
+            return "/jsp/IFrame/iframePortlet";
+        
+        // window-state = "minimized" → <a href="…" />
         if (PortletConstants.WINDOW_STATE_MINIMIZED.equals(request.getWindowState()))
             return "/jsp/IFrame/linkOnly";
         
+        // a-propos check → a-propos view
         boolean isAbout = aboutWindowStates.contains(request.getWindowState())
                        || PortletConstants.PORTLET_MODE_ABOUT.equals(request.getPortletMode())
                        || PortletConstants.PORTLET_MODE_HELP.equals(request.getPortletMode());
         if (isOpenExternal(request) || isAbout)
             return "/jsp/IFrame/aboutIframePortlet";
         
+        // otherwise → <iframe />
         return "/jsp/IFrame/iframePortlet";
 	}
 

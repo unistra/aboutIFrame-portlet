@@ -12,6 +12,7 @@ Features
 * Re-size `IFrame` element dynamically using `jQuery` to avoid double scroll-bars
 * handle ABOUT portlet mode (giving access to the _a-propos_ text in maximized view)
 * JavaScript rich text editor to edit HTML about text
+* optionnaly provide IFrame in all cases (like original IFrame Portlet)
 
 
 Plan & Ideas
@@ -21,7 +22,6 @@ Plan & Ideas
 * memorize navigation using AJAX to persist frame navigation across portal navigation
 * provide an optional HELP portlet mode
   * JavaScript rich text editor to edit help HTML parameter
-* optionnaly provide IFrame in all cases (like original IFrame Portlet)
 * open in a new window in case of mobile devices
 * _…_
 

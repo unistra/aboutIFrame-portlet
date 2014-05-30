@@ -59,8 +59,7 @@ public class ConfigDAO {
         form.setUrl(preferences.getValue("url", ""));
         form.setAbout(preferences.getValue("about", ""));
         form.setHelp(preferences.getValue("help", ""));
-        form.setOpenExternal(Boolean.parseBoolean(
-                        preferences.getValue("openExternal", "false")));
+        form.setDisplayStyle(preferences.getValue("displayStyle", "About"));
 
         // retro-compatibility (move iFrameName → id)
         String iFrameName = preferences.getValue("iFrameName", null);
@@ -93,10 +92,7 @@ public class ConfigDAO {
                 preferences.setValue("help", help);
             else
                 preferences.reset("help");
-            if (form.isOpenExternal())
-                preferences.setValue("openExternal", Boolean.toString(form.isOpenExternal()));
-            else
-                preferences.reset("openExternal");
+            preferences.setValue("displayStyle", form.getDisplayStyle());
             for (Map.Entry<String, Attr> attr : form.getAttrs().entrySet())
                 if (attr.getValue().isEnabled())
                     preferences.setValue(attr.getKey(), attr.getValue().getValue());

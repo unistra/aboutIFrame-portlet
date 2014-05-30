@@ -64,4 +64,17 @@ public final class PortletConstants {
     /** @see org.jasig.portal.portlet.rendering.IPortletRenderer#CONFIG */
     public static final PortletMode PORTLET_MODE_CONFIG = new PortletMode("CONFIG");
 
+    public static enum IFrameStyle {
+        IFRAME("IFrame"),
+        ABOUT("About"),
+        EXTERNAL("External");
+        
+        private final String name;
+        
+        IFrameStyle(String name) {
+            this.name = name;
+        }
+        
+        public String toString() { return this.name; };
+    }
 }

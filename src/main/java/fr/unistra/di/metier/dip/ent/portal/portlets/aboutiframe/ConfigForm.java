@@ -22,6 +22,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import fr.unistra.di.metier.dip.ent.portal.portlets.aboutiframe.PortletConstants.IFrameStyle;
+
 
 /**
  * Simple web form for AboutIFrame PortletPreferences
@@ -36,7 +38,7 @@ public class ConfigForm implements Serializable {
     private String url;
     private String about;
     private String help;
-    private boolean openExternal;
+    private PortletConstants.IFrameStyle style;
 
     /**
      * Get IFrame src URL attribute
@@ -89,15 +91,27 @@ public class ConfigForm implements Serializable {
     /**
      * True if the content has to be opened in a external browser window
      */
-    public boolean isOpenExternal() {
-        return openExternal;
+    public String getDisplayStyle() {
+        return style.name();
+    }
+    
+    /**
+     * True if the content has to be opened in a external browser window
+     */
+    public IFrameStyle[] getDisplayStyles() {
+        return IFrameStyle.values();
     }
 
     /**
      * Set if the content has to be opened in a external browser window
      */
-    public void setOpenExternal(boolean openExternal) {
-        this.openExternal = openExternal;
+    public void setDisplayStyle(String style) {
+        try {
+          this.style = IFrameStyle.valueOf(style.toUpperCase());
+        }
+        catch (IllegalArgumentException e) {
+          this.style = IFrameStyle.ABOUT;
+        }
     }
 
     /**
