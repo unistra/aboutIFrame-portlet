@@ -25,10 +25,12 @@ import java.util.Set;
 
 import javax.portlet.PortletMode;
 import javax.portlet.PortletPreferences;
+import javax.portlet.PortletRequest;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.WindowState;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +45,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping({"VIEW","HELP","ABOUT"})
 public class AboutIFramePortletController {
+    
+    private CasTicketService casTicketService;
+    
+    @Autowired
+    public void setCasTicketService(CasTicketService casTicketService) {
+        this.casTicketService = casTicketService;
+    }
     
 	/** non-exclusive windowStates */
 	private static final Set<WindowState> aboutWindowStates = Collections
@@ -122,6 +131,9 @@ public class AboutIFramePortletController {
 		if (model.get("src") == null) {
 	        model.put("src", preferences.getValue("url", IFRAME_ATTRS.get("src")));	        
 		}
+		// decorate URL if CAS needed
+		if (Boolean.valueOf(preferences.getValue("authCAS", Boolean.toString(false))))
+		    model.put("src", new CasUrlDecorator(request, (String) model.get("src")));
 		
 		// sets iframe id if undefined (using legacy iFrameName)
 		if (model.get("id") == null) {
@@ -188,4 +200,20 @@ public class AboutIFramePortletController {
         return "/jsp/IFrame/iframePortlet";
 	}
 
+    public class CasUrlDecorator {
+        private String url;
+        private String authUrl;
+        private PortletRequest request;
+        public CasUrlDecorator(PortletRequest request, String url) {
+            this.url = url;
+            this.request = request;
+            this.authUrl = null;
+        }
+        @Override
+        public String toString() {
+            if (authUrl == null)
+                authUrl = casTicketService.getCasAuthURL(request, url);
+            return authUrl;
+        }
+    }
 }

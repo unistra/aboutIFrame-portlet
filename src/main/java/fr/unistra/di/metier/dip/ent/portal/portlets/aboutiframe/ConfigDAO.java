@@ -57,6 +57,7 @@ public class ConfigDAO {
                 form.setAttr(key, value);
         }
         form.setUrl(preferences.getValue("url", ""));
+        form.setAuthCas(Boolean.valueOf(preferences.getValue("authCAS", "false")));
         form.setAbout(preferences.getValue("about", ""));
         form.setHelp(preferences.getValue("help", ""));
         form.setDisplayStyle(preferences.getValue("displayStyle", "About"));
@@ -86,6 +87,10 @@ public class ConfigDAO {
 
         try {
             preferences.setValue("url", form.getUrl());
+            if (form.isAuthCas())
+                preferences.setValue("authCAS", Boolean.toString(true));
+            else
+                preferences.reset("authCAS");
             preferences.setValue("about", form.getAbout());
             String help = form.getHelp();
             if (! help.isEmpty())

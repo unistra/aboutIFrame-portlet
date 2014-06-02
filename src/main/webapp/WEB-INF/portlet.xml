@@ -48,6 +48,11 @@
         </portlet-info>
     </portlet>
 
+    <user-attribute>
+        <!-- uPortal's CasTicketUserInfoService -->
+        <name>casProxyTicket</name>
+    </user-attribute>
+
     <!-- ... -->
 
 </portlet-app>

@@ -34,6 +34,7 @@
         <spring-framework.version>3.1.4.RELEASE</spring-framework.version>
         <pluto.version>2.1.0-M3</pluto.version>
         <resource-server.version>1.0.28</resource-server.version>
+        <cas.version>3.1.8</cas.version>
         <log4j.version>1.2.17</log4j.version>
         <slf4j.version>1.7.2</slf4j.version>
         <!--junit.version>4.11</junit.version-->
@@ -74,6 +75,11 @@
             <groupId>org.jasig.resourceserver</groupId>
             <artifactId>resource-server-utils</artifactId>
             <version>${resource-server.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jasig.cas</groupId>
+            <artifactId>cas-client-core</artifactId>
+            <version>${cas.version}</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>

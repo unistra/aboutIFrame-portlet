@@ -29,6 +29,8 @@
 		  <div class="panel portlet-section-body" role="region">
 	      <form:label path="url"><spring:message code="config.url"/></form:label>
 	      <form:input path="url" type="url" /><br/>
+	      <form:label path="authCas"><spring:message code="config.authCas"/></form:label>
+		    <form:checkbox path="authCas" /><br/>
 	      <form:label path="displayStyle"><spring:message code="config.displayStyle"/></form:label>
 		    <form:select path="displayStyle" items="${form.displayStyles}"/><br/>
           <div class="fl-widget up-portlet-wrapper">

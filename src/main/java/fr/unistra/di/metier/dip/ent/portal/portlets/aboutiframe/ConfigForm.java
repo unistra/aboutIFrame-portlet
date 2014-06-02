@@ -36,6 +36,7 @@ public class ConfigForm implements Serializable {
     private Map<String,Attr> attrs = new HashMap<String, Attr>();
 
     private String url;
+    private boolean authCas;
     private String about;
     private String help;
     private PortletConstants.IFrameStyle style;
@@ -54,6 +55,20 @@ public class ConfigForm implements Serializable {
      */
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    /**
+     * @return the authCAS
+     */
+    public boolean isAuthCas() {
+        return authCas;
+    }
+
+    /**
+     * @param authCas the authCAS to set
+     */
+    public void setAuthCas(boolean authCas) {
+        this.authCas = authCas;
     }
 
     /**

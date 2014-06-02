@@ -13,11 +13,11 @@ Features
 * handle ABOUT portlet mode (giving access to the _a-propos_ text in maximized view)
 * JavaScript rich text editor to edit HTML about text
 * optionnaly provide IFrame in all cases (like original IFrame Portlet)
+* build CAS login urls pointing to CAS-enabled services using proxy-tickets if possible, building prefixed URL otherwise
 
 
 Plan & Ideas
 ------------
-* build CAS login urls pointing to CAS-enabled services, or better give a proxy-ticket
 * record usage Statistics
 * memorize navigation using AJAX to persist frame navigation across portal navigation
 * provide an optional HELP portlet mode
